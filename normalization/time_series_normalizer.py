@@ -3,7 +3,6 @@
     Python Version: 3.6
 """
 
-import sys
 import numpy as np
 
 def check_shapes(X, y):
@@ -12,7 +11,7 @@ def check_shapes(X, y):
     Specifically, check that X and y have the same number of samples.
     """
     n_X, d = X.shape
-    x_y, _ = y.shape
+    n_y, _ = y.shape
     
     if n_X != n_y:
         raise ValueError('Number of samples in X and y do not match.')
@@ -36,11 +35,11 @@ class TimeSeriesNormalizer():
             self.perc_high = perc_high
         elif mode == 'mean_var':
             self.mode = mode
-        else    
-            raise ValueError(mode, 'is not a valid normalization mode.')
+        else:
+            raise ValueError('{} is not a valid normalization mode.'.format(mode))
 
     def normalize(self, X, y):
-        if self.mode == 'min_max'
+        if self.mode == 'min_max':
             X_norm, y_norm = self._min_max_norm(X, y)
         else:
             X_norm, y_norm = self._mean_var_norm(X, y)
@@ -48,7 +47,7 @@ class TimeSeriesNormalizer():
         return X_norm, y_norm
 
     def denormalize(self, X_norm, y_norm):
-        if self.mode == 'min_max'
+        if self.mode == 'min_max':
             X, y = self._min_max_denorm(X_norm, y_norm)
         else:
             X, y = self._mean_var_denorm(X_norm, y_norm)
@@ -62,8 +61,8 @@ class TimeSeriesNormalizer():
         """
         n, d = check_shapes(X, y)
 
-        ref_min = np.percentile(X.min(axis=1), q=perc_low)
-        ref_max = np.percentile(X.max(axis=1), q=perc_high)
+        ref_min = np.percentile(X.min(axis=1), q=self.perc_low)
+        ref_max = np.percentile(X.max(axis=1), q=self.perc_high)
         
         X_norm = self.new_min + (X - ref_min)*(self.new_max - self.new_min)/(ref_max - ref_min)
         y_norm = self.new_min + (y - ref_min)*(self.new_max - self.new_min)/(ref_max - ref_min)
@@ -81,7 +80,7 @@ class TimeSeriesNormalizer():
 
         return X, y
     
-    def _mean_var(self, X, y):
+    def _mean_var_norm(self, X, y):
         """Mean-variance normalization.
 
         Transform values so that they have zero mean and unit variance 
