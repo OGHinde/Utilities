@@ -39,6 +39,9 @@ class TimeSeriesNormalizer():
             raise ValueError('{} is not a valid normalization mode.'.format(mode))
 
     def normalize(self, X, y):
+        """Normalize a set of input samples and their corresponding 
+        targets according to the specified normalization mode.
+        """
         if self.mode == 'min_max':
             X_norm, y_norm = self._min_max_norm(X, y)
         else:
@@ -46,13 +49,14 @@ class TimeSeriesNormalizer():
 
         return X_norm, y_norm
 
-    def denormalize(self, X_norm, y_norm):
+    def denormalize(self, y_pred):
+        """Denormalize a set of predicted targets according to the mode 
+        that was used in the normalization stage.
+        """
         if self.mode == 'min_max':
-            X, y = self._min_max_denorm(X_norm, y_norm)
+            return self._min_max_denorm(y_pred)
         else:
-            X, y = self._mean_var_denorm(X_norm, y_norm)
-
-        return X, y
+            return self._mean_var_denorm(y_pred)
 
     def _min_max_norm(self, X, y):
         """Min-max normalization.
@@ -72,13 +76,10 @@ class TimeSeriesNormalizer():
 
         return X_norm, y_norm
 
-    def _min_max_denorm(self, X_norm, y_norm):
-        """Undo min-max normalization.
+    def _min_max_denorm(self, X):
+        """Undo min-max normalization on a vector or matrix.
         """
-        X = self.ref_min_ + (X_norm - self.new_min)*(self.ref_max_ - self.ref_min_)/(self.new_max - self.new_min)
-        y = self.ref_min_ + (y_norm - self.new_min)*(self.ref_max_ - self.ref_min_)/(self.new_max - self.new_min)
-
-        return X, y
+        return self.ref_min_ + (X - self.new_min)*(self.ref_max_ - self.ref_min_)/(self.new_max - self.new_min)
     
     def _mean_var_norm(self, X, y):
         """Mean-variance normalization.
@@ -98,10 +99,7 @@ class TimeSeriesNormalizer():
         
         return X_norm, y_norm, 
 
-    def _mean_var_denorm(self, X_norm, y_norm):
-        """Undo mean-variance normalization.
+    def _mean_var_denorm(self, X):
+        """Undo mean-variance normalization on a vector or matrix.
         """
-        X = X_norm*self.std_ + self.mean_
-        y = y_norm*self.std_ + self.mean_
-
-        return X, y
+        return X*self.std_ + self.mean_
