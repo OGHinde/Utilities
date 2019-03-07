@@ -31,8 +31,10 @@ def time_disp(seconds):
     """
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
+    d, h = divmod(h, 24)
 
-    return '{:.0f} hours, {:.0f} minutes {:.3f} seconds'.format(h, m, s)
+    return """{:.0f} days, {:.0f} hours, 
+              {:.0f} minutes {:.3f} seconds.""".format(d, h, m, s)
 
 
 

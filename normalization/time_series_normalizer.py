@@ -25,8 +25,8 @@ class TimeSeriesNormalizer():
     A class containing a bunch of different time series specific 
     normalization strategies.
     """
-
-    def __init__(self, mode='min_max', new_min=0, new_max=1, perc_low=0, perc_high=100):
+    def __init__(self, mode='min_max', new_min=0, new_max=1, 
+                 perc_low=0, perc_high=100):
         if mode == 'min_max':
             self.mode = mode
             self.new_min = new_min
@@ -79,7 +79,8 @@ class TimeSeriesNormalizer():
     def _min_max_denorm(self, X):
         """Undo min-max normalization on a vector or matrix.
         """
-        return self.ref_min_ + (X - self.new_min)*(self.ref_max_ - self.ref_min_)/(self.new_max - self.new_min)
+        numerator = (X - self.new_min)*(self.ref_max_ - self.ref_min_)
+        return self.ref_min_ + numerator/(self.new_max - self.new_min)
     
     def _mean_var_norm(self, X, y):
         """Mean-variance normalization.
