@@ -56,10 +56,10 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_len
     
     try:
         bar = u"\u2588" * filled_length + '-' * (bar_length - filled_length)
+        sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix))
     except:
         bar = '*' * filled_length + '-' * (bar_length - filled_length)
-
-    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
+        sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix))
 
     if iteration == total:
         sys.stdout.write('\n')
