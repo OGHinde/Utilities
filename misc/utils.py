@@ -41,8 +41,7 @@ def time_disp(seconds):
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
 
-    return """{:.0f} days, {:.0f} hours, 
-              {:.0f} minutes {:.3f} seconds.""".format(d, h, m, s)
+    return """{:.0f} days, {:.0f} hours, {:.0f} minutes, {:.3f} seconds.""".format(d, h, m, s)
 
 def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
     """
