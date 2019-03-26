@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """A BUNCH OF USEFUL FUNCTIONS
 
     Author: Óscar García Hinde <oghinde@tsc.uc3m.es>
