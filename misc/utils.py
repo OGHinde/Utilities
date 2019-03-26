@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""A BUNCH OF RANDOM FUNCTIONS
+"""A BUNCH OF USEFUL FUNCTIONS
 
     Author: Óscar García Hinde <oghinde@tsc.uc3m.es>
     Python Version: 3.6
@@ -30,8 +30,14 @@ def mean_absolute_percentage_error(y_true, y_pred, multitarget=None):
     return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 def time_disp(seconds):
-    """Display a time given in seconds in a more pleasing manner.
     """
+    Display a time given in seconds in a more pleasing manner.
+    
+    Parameters
+    ----------
+        seconds  : the number of seconds to be formatted and printed.
+    """
+
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
@@ -41,15 +47,18 @@ def time_disp(seconds):
 
 def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
     """
-    Call in a loop to create terminal progress bar
-    @params:
-        iteration   - Required  : current iteration (Int)
-        total       - Required  : total iterations (Int)
-        prefix      - Optional  : prefix string (Str)
-        suffix      - Optional  : suffix string (Str)
-        decimals    - Optional  : positive number of decimals in percent complete (Int)
-        bar_length  - Optional  : character length of bar (Int)
+    Call this inside a loop to create terminal progress bar
+    
+    Parameters
+    ----------
+        iteration  : current iteration (Int)
+        total      : total iterations (Int)
+        prefix     : prefix string (Str)
+        suffix     : suffix string (Str)
+        decimals   : positive number of decimals in percent complete (Int)
+        bar_length : character length of bar (Int)
     """
+
     str_format = "{0:." + str(decimals) + "f}"
     percents = str_format.format(100 * (iteration / float(total)))
     filled_length = int(round(bar_length * iteration / float(total)))
