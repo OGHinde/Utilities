@@ -27,13 +27,13 @@ for area in areas:
     count=0
     for i in K_range:
         for j in eta_range:
-            utils.printProgressBar(iteration=count, 
+            utils.print_progress_bar(iteration=count, 
                                    total=len(K_range)*len(eta_range), 
                                    prefix='Progress:', 
                                    suffix='completed.')
             time.sleep(0.05)
             count += 1
-    utils.printProgressBar(iteration=count, 
+    utils.print_progress_bar(iteration=count, 
                            total=len(K_range)*len(eta_range), 
                            prefix='Progress:', 
                            suffix='completed.')

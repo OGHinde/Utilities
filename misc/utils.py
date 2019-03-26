@@ -39,7 +39,7 @@ def time_disp(seconds):
     return """{:.0f} days, {:.0f} hours, 
               {:.0f} minutes {:.3f} seconds.""".format(d, h, m, s)
 
-def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
     """
     Call in a loop to create terminal progress bar
     @params:
