@@ -57,27 +57,27 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_l
         bar_length : character length of bar (Int)
 
 	Example
-    ----------
+	----------
 	
 	import time
 	
 	A_range = range(10)
 	B_range = range(5)
 	count=0
-    for i in A_range:
-        for j in B_range:
-            utils.print_progress_bar(iteration=count, 
-                                     total=len(A_range)*len(B_range), 
-                                     prefix='Progress:', 
-                                     suffix='completed.')
-            time.sleep(0.05)
-            count += 1
-    
-    # Finish the bar
-    utils.print_progress_bar(iteration=count, 
-                             total=len(A_range)*len(B_range), 
-                             prefix='Progress:', 
-                             suffix='completed.')
+	for i in A_range:
+		for j in B_range:
+			utils.print_progress_bar(iteration=count, 
+			                         total=len(A_range)*len(B_range), 
+			                         prefix='Progress:', 
+			                         suffix='completed.')
+			time.sleep(0.05)
+			count += 1
+	
+	# Finish the bar
+	utils.print_progress_bar(iteration=count, 
+							 total=len(A_range)*len(B_range), 
+							 prefix='Progress:', 
+							 suffix='completed.')
     """
 
     str_format = "{0:." + str(decimals) + "f}"
