@@ -13,27 +13,24 @@ home = str(Path.home())
 sys.path.append(home + '/Git/Clusterwise_Linear_Model/')
 sys.path.append(home + '/Git/Utilities/')
 
-import time
-import numpy as np
 import misc.utils as utils
-
-K_range = np.arange(2, 18)
-eta_range = np.linspace(0.1, 15, 35)
-areas = ['Area 1', 'Area 2']
-
-for area in areas:
-    print('\nComputing for ' + area + '.')
-
-    count=0
-    for i in K_range:
-        for j in eta_range:
-            utils.print_progress_bar(iteration=count, 
-                                   total=len(K_range)*len(eta_range), 
-                                   prefix='Progress:', 
-                                   suffix='completed.')
-            time.sleep(0.05)
-            count += 1
-    utils.print_progress_bar(iteration=count, 
-                           total=len(K_range)*len(eta_range), 
-                           prefix='Progress:', 
-                           suffix='completed.')
+import time
+  
+A_range = range(10)
+B_range = range(5)
+count=0
+print('\nPROGRESS BAR DEMO\n')
+for i in A_range:
+    for j in B_range:
+        utils.print_progress_bar(iteration=count, 
+                                 total=len(A_range)*len(B_range), 
+                                 prefix='Progress:', 
+                                 suffix='completed.')
+        time.sleep(0.05)
+        count += 1
+  
+# Finish the bar
+utils.print_progress_bar(iteration=count, 
+                         total=len(A_range)*len(B_range), 
+                         prefix='Progress:', 
+                         suffix='completed.')
