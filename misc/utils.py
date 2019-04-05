@@ -58,7 +58,7 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_l
 
 	Example
 	----------
-	
+		
 		import time
 		
 		A_range = range(10)
