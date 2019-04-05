@@ -30,7 +30,7 @@ def mean_absolute_percentage_error(y_true, y_pred, multitarget=None):
 
 def time_disp(seconds):
     """
-    Display a time given in seconds in a more pleasing manner.
+    Display a time given in seconds in a more readable format.
     
     Parameters
     ----------
