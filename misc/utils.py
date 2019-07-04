@@ -30,7 +30,7 @@ def mean_absolute_percentage_error(y_true, y_pred, multitarget=None):
 
 def time_disp(seconds):
     """
-    Display a time given in seconds in a more pleasing manner.
+    Display a time given in seconds in a more readable format.
     
     Parameters
     ----------
@@ -55,6 +55,29 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_l
         suffix     : suffix string (Str)
         decimals   : positive number of decimals in percent complete (Int)
         bar_length : character length of bar (Int)
+
+	Example
+	----------
+		
+		import time
+		
+		A_range = range(10)
+		B_range = range(5)
+		count=0
+		for i in A_range:
+			for j in B_range:
+				utils.print_progress_bar(iteration=count, 
+				                         total=len(A_range)*len(B_range), 
+				                         prefix='Progress:', 
+				                         suffix='completed.')
+				time.sleep(0.05)
+				count += 1
+		
+		# Finish the bar
+		utils.print_progress_bar(iteration=count, 
+								 total=len(A_range)*len(B_range), 
+								 prefix='Progress:', 
+								 suffix='completed.')
     """
 
     str_format = "{0:." + str(decimals) + "f}"
@@ -65,7 +88,7 @@ def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, bar_l
         bar = u"\u2588" * filled_length + '-' * (bar_length - filled_length)
         sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix))
     except:
-        bar = '*' * filled_length + '-' * (bar_length - filled_length)
+        bar = '#' * filled_length + '-' * (bar_length - filled_length)
         sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix))
 
     if iteration == total:
