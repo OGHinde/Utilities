@@ -49,14 +49,14 @@ class TimeSeriesNormalizer():
 
         return X_norm, y_norm
 
-    def denormalize(self, y_pred):
+    def denormalize(self, X):
         """Denormalize a set of predicted targets according to the mode 
         that was used in the normalization stage.
         """
         if self.mode == 'min_max':
-            return self._min_max_denorm(y_pred)
+            return self._min_max_denorm(X)
         else:
-            return self._mean_var_denorm(y_pred)
+            return self._mean_var_denorm(X)
 
     def _min_max_norm(self, X, y):
         """Min-max normalization.
@@ -64,23 +64,25 @@ class TimeSeriesNormalizer():
         Transform values so that they lie between new_min and new_max.
         """
         n, d = check_shapes(X, y)
+        
+        old_max = np.percentile(X, axis=1, q=self.perc_high)[:, np.newaxis]
+        old_min = np.percentile(X, axis=1, q=self.perc_low)[:, np.newaxis]
+        new_max = self.new_max
+        new_min = self.new_min
 
-        ref_min = np.percentile(X.min(axis=1), q=self.perc_low)
-        ref_max = np.percentile(X.max(axis=1), q=self.perc_high)
-        
-        X_norm = self.new_min + (X - ref_min)*(self.new_max - self.new_min)/(ref_max - ref_min)
-        y_norm = self.new_min + (y - ref_min)*(self.new_max - self.new_min)/(ref_max - ref_min)
-        
-        self.ref_min_ = ref_min
-        self.ref_max_ = ref_max
+        X_norm = (X - old_min) * (new_max - new_min) / (old_max - old_min) + new_min
+        y_norm = (y - old_min) * (new_max - new_min) / (old_max - old_min) + new_min
+
+        self.old_max_ = old_max
+        self.old_min_ = old_min
 
         return X_norm, y_norm
 
     def _min_max_denorm(self, X):
         """Undo min-max normalization on a vector or matrix.
         """
-        numerator = (X - self.new_min)*(self.ref_max_ - self.ref_min_)
-        return self.ref_min_ + numerator/(self.new_max - self.new_min)
+        numerator = (X - self.new_min)*(self.old_max_ - self.old_min_)
+        return self.old_min_ + numerator/(self.new_max - self.new_min)
     
     def _mean_var_norm(self, X, y):
         """Mean-variance normalization.
