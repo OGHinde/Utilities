@@ -25,8 +25,8 @@ def mean_absolute_percentage_error(y_true, y_pred, multitarget=None):
         A non-negative floating point value (the best value is 0.0), or an
         array of floating point values, one for each individual target.
     """
-
-    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+    mape = np.abs((y_true - y_pred) / y_true) * 100
+    return mape, np.mean(mape) 
 
 def time_disp(seconds):
     """
